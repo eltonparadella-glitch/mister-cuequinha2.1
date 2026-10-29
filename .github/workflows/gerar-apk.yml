@@ -24,7 +24,7 @@ jobs:
 
       - name: Preparar projeto
         run: |
-          Z=$(ls -t $(find . -maxdepth 2 -name '*.zip' -not -path './.git/*') 2>/dev/null | head -1)
+          Z=$(find . -maxdepth 2 -iname '*.zip' -not -path './.git/*' -printf '%s %p\n' | sort -nr | head -1 | cut -d' ' -f2-)
           if [ -n "$Z" ]; then
             echo "Usando o zip: $Z"
             rm -rf /tmp/proj && mkdir -p /tmp/proj && unzip -q "$Z" -d /tmp/proj
